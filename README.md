@@ -12,16 +12,16 @@
 
 ## JS
 
-- [Какой язык JavaScript?](./HTML/ru/js.md#какой-язык-javascript)
-- [Типы данных в JavaScript?](./HTML/ru/js.md#типы-данных-в-javascript)
-- [Как определить тип данных в JS?](./HTML/ru/js.md#определение-типов)
-- [Преобразование типов](./HTML/ru/js.md#преобразование-типов)
-- [== и === (нестрогое/строгое равенство); != и !== (нестрогое/строгое неравенство)](./HTML/ru/js.md#-и--нестрогоестрогое-равенство--и--нестрогоестрогое-неравенство)
-- [Переменные](./HTML/ru/js.md#переменные)
-- [Операции](./HTML/ru/js.md#операции)
-- [Что такое Strict mode в JavaScript?](./HTML/ru/js.md#strict-mode-в-javascript)
-- [Что такое функция? Как объявить функцию?](./HTML/ru/js.md#функция-и-из-чего-она-состоит)
-- [Разница между function declaration и function expression?](./HTML/ru/js.md#разница-между-function-declaration-и-function-expression)
+- [Какой язык JavaScript?](./JS/ru/js.md#какой-язык-javascript)
+- [Типы данных в JavaScript?](./JS/ru/js.md#типы-данных-в-javascript)
+- [Как определить тип данных в JS?](./JS/ru/js.md#определение-типов)
+- [Преобразование типов](./JS/ru/js.md#преобразование-типов)
+- [== и === (нестрогое/строгое равенство); != и !== (нестрогое/строгое неравенство)](./JS/ru/js.md#-и--нестрогоестрогое-равенство--и--нестрогоестрогое-неравенство)
+- [Переменные](./JS/ru/js.md#переменные)
+- [Операции](./JS/ru/js.md#операции)
+- [Что такое Strict mode в JavaScript?](./JS/ru/js.md#strict-mode-в-javascript)
+- [Что такое функция? Как объявить функцию?](./JS/ru/js.md#функция-и-из-чего-она-состоит)
+- [Разница между function declaration и function expression?](./JS/ru/js.md#разница-между-function-declaration-и-function-expression)
 
 // TODO
 Разница между null и undefined?
