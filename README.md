@@ -12,32 +12,59 @@
 
 ## JS
 
-- [Какой язык JavaScript?](./JS/ru/js.md#какой-язык-javascript)
-- [Типы данных в JavaScript?](./JS/ru/js.md#типы-данных-в-javascript)
-- [Как определить тип данных в JS?](./JS/ru/js.md#определение-типов)
-- [Преобразование типов](./JS/ru/js.md#преобразование-типов)
-- [== и === (нестрогое/строгое равенство); != и !== (нестрогое/строгое неравенство)](./JS/ru/js.md#-и--нестрогоестрогое-равенство--и--нестрогоестрогое-неравенство)
-- [Переменные](./JS/ru/js.md#переменные)
-- [Операции](./JS/ru/js.md#операции)
-- [Что такое Strict mode в JavaScript?](./JS/ru/js.md#strict-mode-в-javascript)
-- [Что такое функция? Как объявить функцию?](./JS/ru/js.md#функция-и-из-чего-она-состоит)
-- [Разница между function declaration и function expression?](./JS/ru/js.md#разница-между-function-declaration-и-function-expression)
+База:
+- [Какой язык JavaScript?](./JS/ru/base/base.md#какой-язык-javascript)
+- [Что такое Strict mode в JavaScript?](./JS/ru/base/base.md#strict-mode-в-javascript)
+- Что такое поднятие (Hoisting)?
+- Что такое область видимости (Scope)?
 
-// TODO
-Разница между null и undefined?
-Типы таймеров в JavaScript?
-Что такое поднятие (Hoisting)?
-Что такое область видимости (Scope)?
-Разница между var, let и const?
-Что такое замыкание (Closure)?
-Что обозначает this в JavaScript?
-Что такое функции высшего порядка (Higher Order Functions)?
-Как превратить любой тип данных в булевый? Перечислите ложные значения в JS?
+Переменные:
+- [Переменные](./JS/ru/base/variables.md#переменные)
+- Разница между var, let и const?
+
+Типы данных:
+- [Типы данных в JavaScript](./JS/ru/base/types.md#типы-данных-в-javascript)
+- [Разница между null и undefined](./JS/ru/base/types.md#разница-между-null-и-undefined)
+- [Как определить тип данных в JS?](./JS/ru/base/types.md#определение-типов)
+- [Преобразование типов](./JS/ru/base/types.md#преобразование-типов)
+
+Операции:
+- [Арифметические операции](./JS/ru/base/operations.md#операции-и-конструкции)
+- [Для чего используется оператор остатка (%)?](./JS/ru/js.md#операции)
+- [Строковые операции](./JS/ru/base/operations.md#операции-и-конструкции)
+- [Логические операции](./JS/ru/base/operations.md#операции-и-конструкции)
+- [Операторы «И» и «ИЛИ» (&& и ||)?](./JS/ru/js.md#операции)
+- [Для чего используется оператор двойного отрицания (!!)?](./JS/ru/js.md#преобразование-типов)
+- [== и === (нестрогое/строгое равенство); != и !== (нестрогое/строгое неравенство)](./JS/ru/js.md#-и--нестрогоестрогое-равенство--и--нестрогоестрогое-неравенство)
+
+Циклы:
+- [Циклы](./JS/ru/base/loops.md#циклы)
+
+Структуры данных:
+- [Массив](./JS/ru/data_structures/array.md#массив)
+- [Объект (хэш-таблица)](./JS/ru/data_structures/object.md#объект)
+
+Функции:
+- [Что такое функция? Как объявить функцию?](./JS/ru/base/functions.md#функция-и-из-чего-она-состоит)
+- [Разница между function declaration и function expression?](./JS/ru/base/functions.md#разница-между-function-declaration-и-function-expression)
+- [Анонимные функции](./JS/ru/base/functions.md#анонимные-функции)
+- [IIFE](./JS/ru/base/functions.md#iife-immediately-invoked-function-expression)
+- [Что такое функции высшего порядка (Higher Order Functions)?](./JS/ru/base/functions.md#hoc-high-order-function)
+- [Что такое чистая функция?](./JS/ru/base/functions.md#чистая-функция)
+- [Рекурсия](./JS/ru/base/functions.md#рекурсия)
+- [Callback](./JS/ru/base/functions.md#callback-функции)
+- [Каррирование](./JS/ru/base/functions.md#каррирование-функций)
+- [Что такое замыкание (Closure)?](./JS/ru/base/functions.md#замыкание)
+- Что обозначает this в JavaScript?
+- Разница между .call(), .apply() и bind()?
+
+Browser API:
+- [Типы таймеров в JavaScript?](./JS/ru/js.md#типы-таймеров-в-js)
+
+
+
 Методы строк в JavaScript?
-Методы массивов в JavaScript?
-Что такое чистая функция?
 Разница между .forEach() и .map()?
-Разница между .call(), .apply() и bind()?
 Почему в JS функции называют объектами первого класса?
 Как определить наличие свойства в объекте?
 Что такое IIFE (Immediately Invoked Function Expression)?
@@ -50,9 +77,7 @@
 Что такое объектная обертка (Wrapper Objects)?
 Как в JavaScript создать объект?
 Для чего используется ключевое слово new?
-Операторы «И» и «ИЛИ» (&& и ||)?
-Для чего используется оператор двойного отрицания (!!)?
-Для чего используется оператор остатка (%)?
+
 Как проверить, является ли значение массивом?
 Как работает boxing/unboxing в JavaScript?
 Что такое мемоизация? Реализуйте базовую логику функции для мемоизации?
@@ -64,7 +89,6 @@
 Что такое прототип объекта в JavaScript?
 Как работает метод Object.create()?
 Разниц между Object.freeze() и Object.seal()?
-Разница между методами .slice() и .splice()?
 Как работают методы .find(), .findIndex() и .indexOf()?
 Плюсы и минусы использования use strict?
 Разница между методами .push(), .pop(), .shift() и .unshift()?
