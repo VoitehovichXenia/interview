@@ -14,6 +14,8 @@
 - конструктора **new Function(params, code)**
 - **arrow function** () => {}
 
+Функции в JS являются объектами первого класса. Что такле объект первого класса - [читать здесь](../data_structures_and_types/object.md#объект-первого-класса)
+
 # Разница между function declaration и function expression?
 
 - **function declaration** - объявление в потоке кода
