@@ -7,6 +7,8 @@
 - параметры
 - возвращаемое значение (по умолчанию undefined)
 
+Все аргументы хранятся в псевдомассиве ``arguments``
+
 Функция объявляется с помощью:
 - ключевого слова **function**
 - конструктора **new Function(params, code)**
@@ -28,7 +30,7 @@
 
 # Анонимные функции
 
-- Анонимной в JavaScript называют функцию с которой не связано никакое имя
+**Анонимной** в JavaScript называют функцию с которой не связано никакое имя
 
 ```ts
 function ask (question: string, yes: () => void, no: () => void) {
@@ -64,6 +66,23 @@ function printName (name: string, callback: () => any) {
   callback()
 }
 ```
+
+# Стрелочные функции
+
+Синтаксис: () => {}
+
+Отличия от традиционных функций:
+- Нет ``this``
+- Нет доступа к псевдомассиву ``arguments``
+- Нельзя вызвать с помощью операторв ``new``
+```ts
+function sayHi(name) { console.log(`Hello ${name}!`) }
+new sayHi('Jane Doe')
+
+const arrowFunc = (name) => { console.log(`Hello ${name}!`) }
+new arrowFunc('John Doe') // Error
+```
+- Не допускают дублирования имен параметров (традиционные же фунции допускают такое в нестрогом режиме)
 
 # Рекурсия
 
@@ -133,7 +152,7 @@ function () {
 
 # HOC (High order function)
 
-HOC - функция, которая или принимает другие функции как параметер или возвращает функцию
+**HOC** - функция, которая или принимает другие функции как параметер или возвращает функцию
 
 ```ts
 function calculate (a: number, b: number, callback: (result: number) => any): number {
@@ -166,7 +185,7 @@ function calculate (a: number, b: number): (operation: 'print' | 'distract', num
 
 ![Closure](../../assets/closure.png)
 
-Все переменные функции - это свойства внутреннего объекта лексического окружения (Lexical Environment), который создается при запуске фунцции. Является скрытым и недоступным для прямого доступа.
+Все переменные функции - это свойства внутреннего объекта **лексического окружения** (Lexical Environment), который создается при запуске фунцции. Является скрытым и недоступным для прямого доступа.
 
 Из функции можно обратиться к глобальным переменным, но поиск всегда начинается с собственного лексического окружения, и только затем если ее нет, ищет ее во внешнем объекте.
 
@@ -183,3 +202,139 @@ function foo () {
 foo() // 8
 ```
 
+# This
+
+**this** - это ссылка на объект в контексте которого выполняется функция или метод (тогда this равен объекту в контексте которого был вызван)
+
+У стрелочных функций нет this. В стрелочных функциях this ссылается на this внешней функции.
+
+По умолчанию для функций this ссылается на window, но мы можем задать его явно:
+
+- **.bind(context)** - указывает ссылку на объект в контексте которого будет осуществлен вызов, при это НЕ вызывая функцию
+    ```ts
+    const car = {
+      name: 'Audi',
+      printName () {
+        console.log(this.name)
+      }
+    }
+
+    const car_2 = {
+      name: 'Tesla'
+    }
+    car_2.printName = car.printName.bind(car_2)
+
+    car.printName()
+    car_2.printName()
+    ```
+- **.call(context, arg1, arg2 ...)** - первый аргумент указывает ссылку на объект в контексте которого будет осуществлен вызов, следующие аргументы передаются в функцию непосредственно, при этом происходит ВЫЗОВ функции
+    ```ts
+    const car = {
+      name: 'Audi',
+      getInfo (age) {
+        console.log(`Car info: ${this.name} ${age} years old`)
+      }
+    }
+
+    const car_2 = {
+      name: 'Tesla'
+    }
+
+    car.getInfo(25)
+    car.getInfo.call(car_2, 5)
+    ```
+- **.apply(context, [arg1, arg2 ...])** - первый аргумент указывает ссылку на объект в контексте которого будет осуществлен вызов, следующие аргументы передаются в виде массива в функцию непосредственно, при этом происходит ВЫЗОВ функции
+    ```ts
+    const car = {
+      name: 'Audi',
+      getInfo (age, nextServiceDate) {
+        console.log(`Car info: ${this.name} ${age} years old, next service should be done in: ${nextServiceDate}`)
+      }
+    }
+
+    const car_2 = {
+      name: 'Tesla'
+    }
+
+    car.getInfo(25, '2026')
+    car.getInfo.apply(car_2, [5, '2028'])
+    ```
+
+## Polyfills для bind call apply
+
+### bind()
+
+Идея
+- сохранить контест вызова метода (оригинальную функцию)
+- вернуть новую функцию в которой мы:
+    - определим новый итоговый контекст (если передан в myBind - то оставляем, если нет - window)
+    - в итоговом контексте временно создадим метод, который будет оригинальной функцией
+    - вызовем метод с переданными аргументами и сохраним результат в переменную
+    - удалим созданный метод
+    - вернем результат выполнения
+```ts
+Function.prototype.myBind = function (context) {
+  const originalFunc = this
+
+  return function binded(args) {
+    const finalContext = context ?? window
+
+    const tempMethodSymbol = Symbol()
+
+    finalContext[tempMethodSymbol] = originalFunc
+
+    const result = finalContext[tempMethodSymbol](args)
+
+    delete finalContext[tempMethodSymbol]
+
+    return result
+  }
+}
+```
+
+### call()
+
+Идея: 
+- сделать точно также, только сразу вызывать фунцию а не возвращать ее
+
+```ts
+Function.prototype.myCall = function (context, ...args) {
+  const originalFunc = this
+
+  const finalContext = context ?? window
+
+  const tempMethodSymbol = Symbol()
+
+  finalContext[tempMethodSymbol] = originalFunc
+
+  const result = finalContext[tempMethodSymbol](...args)
+
+  delete finalContext[tempMethodSymbol]
+
+  return result
+} 
+```
+
+### apply()
+
+Идея: 
+- сделать точно также, только сразу вызывать фунцию а не возвращать ее
+- дополнительно проверить переданны ли аргументы
+
+```ts
+Function.prototype.myApply = function (context, args) {
+  const originalFunc = this
+
+  const finalContext = context ?? window
+
+  const tempMethodSymbol = Symbol()
+
+  finalContext[tempMethodSymbol] = originalFunc
+
+  const result = finalContext[tempMethodSymbol]( args ? ...args : undefined)
+
+  delete finalContext[tempMethodSymbol]
+
+  return result
+} 
+```
