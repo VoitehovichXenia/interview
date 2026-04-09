@@ -43,6 +43,29 @@ typeof (() => {}) // 'function'
 // Поэтому Если значение имеет внутренний метод [[Call]], то typeof возвращает "function"
 ```
 
+## Что такое NaN? Как определить, что значение равно NaN?
+
+**NaN** - Not a number
+
+``typeof NaN 'number'``
+
+```ts
+// Глобальная функция
+isNaN('test') // true
+isNaN(3) // false
+
+// Статический метод Number
+Number.isNaN('test') // true
+Number.isNaN(3) // false
+
+// Сравнение с самим собой (Self-comparison), т.к. NaN это единственное значение неравное само себе
+const x = NaN
+console.log(x !== x) // true
+
+const x_2 = 3
+console.log(x_2 !== x_2) // false
+```
+
 # Преобразование типов
 
 ### Числовое преобразование

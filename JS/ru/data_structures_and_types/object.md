@@ -19,12 +19,37 @@
 ### Создание объекта
 
 - object literal
-- object constructor
+- Конструктор Object()
+- Object.create(prototype)
+- Функция-конструктор (для создания множества однотипных объектов)
+- Классы (ES6+)
 
 ```ts
+// object literal
 const obj = { key: 'value' };
 
+// Конструктор Object()
 const obj_2 = new Object();
+
+// Object.create(prototype)
+const animal = { jumps: false }
+const obj_3 = Object.create(animal);
+
+// Функция-конструктор
+function Person (name, age) {
+    this.name = name;
+    this.age = age
+}
+const obj_4 = new Person('Kate', 20)
+
+// Классы
+class Employee {
+    constructor(title, salary) {
+        this.title = title
+        this.salary = salary
+    }
+}
+const obj_5 = new Employee('Senior frontend developer', 'NDA')
 ```
 
 ### Обращение к свойству / Вставка нового свойства
@@ -77,4 +102,12 @@ delete obj.status
     const obj = { status: 'pending' }
 
     console.log('admin' in obj) // false
+    console.log('toString' in obj) // true
+    ```
+- через hasOwnProperty (возврвщвет true только если свойство принадлежит самому объекту, а не его прототипу)
+    ```ts
+    const obj = { status: 'pending' }
+
+    console.log(obj.hasOwnProperty('status')) // true
+    console.log(obj.hasOwnProperty('toString')) // false
     ```
