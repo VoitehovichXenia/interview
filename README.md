@@ -150,3 +150,78 @@ RegExp
 Как в JavaScript работают декораторы? Как они могут быть использованы для модификации поведения классов и методов?
 Как можно создать объекты с приватными свойствами и методами в JavaScript?
 Методы перехвата и обработки ошибок в веб-приложениях?
+
+## React
+
+База:
+- [Что такое React?](./React/ru/base.md#что-такое-react)
+- [Перечислите особенности React?](./React/ru/base.md#особенности-react)
+- [Назовите преимущества использования React?](./React/ru/base.md#особенности-react)
+- [Является ли React реактивным?](./React/ru/base.md#является-ли-react-реактивным)
+- [Что такое Virtual DOM? Как он работает с React?](./React/ru/base.md#особенности-react)
+- [Разница между теневым (Shadow) и виртуальным (Virtual) DOM?](./React/ru/base.md#разница-между-теневым-shadow-и-виртуальным-virtual-dom)
+- [Для чего нужен атрибут key при рендере списков?](./React/ru/base.md#ключи)
+- [Что такое React Reconciliation?](./React/ru/base.md#reconciliation)
+- [Что такое React Fiber?](./React/ru/base.md#react-fiber)
+- Назовите основную цель React Fiber?
+- [Что Такое JSX?](./React/ru/base.md#jsx)
+- Как отрендерить HTML код в React-компоненте?
+- [Разница между JSX и HTML?](./React/ru/base.md#разница-jsx-vs-html)
+- [Что такое синтетические события в React?](./React/ru/base.md#что-такое-синтетические-события-в-react-syntheticevent)
+- Что такое события указателя (Pointer Events)?
+- [Что такое React-ссылка (ref)? Как создать ссылку?](./React/ru/base.md#что-такое-react-ссылка-ref)
+- [Что такое фрагмент (Fragment)? Почему фрагмент лучше, чем div?](./React/ru/base.md#что-такое-фрагмент-fragment-почему-фрагмент-лучше-чем-div)
+- [Что такое портал (Portal)?](./React/ru/base.md#что-такое-портал-portal)
+- [Что такое контекст (Context)?](./React/ru/base.md#что-такое-контекст-context)
+- [Что такое условный рендеринг (Conditional Rendering)? Как его выполнить?](./React/ru/base.md#что-такое-условный-рендеринг-conditional-rendering-как-его-выполнить)
+- [Разница между React и ReactDOM?](./React/ru/base.md#разница-между-react-и-reactdom)
+- [Что такое строгий режим в React? Его преимущества?](./React/ru/base.md#что-такое-строгий-режим-в-react-его-преимущества)
+- Что такое «опрос» (Polling)? Как его реализовать в React?
+- Что такое ReactDOMServer?
+- Что такое «ленивая» (Lazy) функция?
+- Что такое инверсия наследования (Inheritance Inversion)? (SOLID)
+- Как в React реализовать двустороннее связывание данных?
+- Что такое обратный поток данных в React?
+- Для чего предназначен метод registerServiceWorker() в React?
+- Чем React Router отличается от обычной маршрутизации?
+- Как использовать React.lazy и React.Suspense для запуска кода приложения?
+- [Что такое "Hydration" в контексте серверного-рендеренга React-приложений?](./React/ru/base.md#что-такое-hydration-в-контексте-серверного-рендеренга-react-приложений)
+- Техники оптимизации перфоманса React?
+- Лучшие практики безопасности в React?
+
+Компоненты, props и state
+- [Что такое PureComponent?](./React/ru/components.md#purecomponent)
+- [Что такое Компонент высшего порядка (Higher-Order Component/HOC)?](./React/ru/components.md#компонент-высшего-порядка-higher-order-componenthoc)
+- Разница между классовым и функциональным компонентами?
+- [Разница между управляемыми (controlled) и не управляемыми (uncontrolled) компонентами?](./React/ru/components.md#разница-между-управляемыми-controlled-и-не-управляемыми-uncontrolled-компонентами)
+- [Стадии жизненного цикла компонента в React?](./React/ru/components.md#стадии-жизненного-цикла-компонента-в-react)
+- Разница между рендерингом и монтированием?
+- [Методы жизненного цикла компонента в React?](./React/ru/components.md#методы-жизненного-цикла-компонента-в-react)
+- Как реализовать однократное выполнение операции при начальном рендеринге?
+- Какие типы данных может возвращать render?
+- [Разница между компонентом и контейнером?](./React/ru/components.md#разница-между-компонентом-и-контейнером)
+- [Разница между элементом и компонентом?](./React/ru/components.md#разница-между-элементом-и-компонентом)
+- [Разница между состоянием(state) и пропсами(props)?](./React/ru/components.md#разница-между-состояниемstate-и-пропсамиprops)
+- Что такое предохранители (Error Boundaries)?
+- [Как React обрабатывает, или ограничивает использование пропсов определенного типа?](./React/ru/components.md#как-react-обрабатывает-или-ограничивает-использование-пропсов-определенного-типа)
+- [Что такое «бурение пропсов» (Prop Drilling)? Как его избежать?](./React/ru/components.md#что-такое-бурение-пропсов-prop-drilling-как-его-избежать)
+- Что такое сhildren?
+- Как работает пропс children в React?
+- Что такое поднятие состояния вверх (Lifting State Up)?
+- Что делает метод shouldComponentUpdate?
+- Разница между createElement() и cloneElement()?
+- Что такое распределенный компонент?
+- Зачем в setState() нужно передавать функцию?
+- Как передавать пропсы в React Router?
+- Что такое Reselect и как он работает?
+
+Hooks
+- [Что такое React хуки (Hooks)?](./React/ru/hooks.md#hooks)
+- Разница между useEffect() и componentDidMount()?
+- Преимущества хуков?
+- Недостатки хуков?
+- Правила (ограничения) использования хуков?
+- Что такое useReducer()?
+- Расскажите о хуках useCallback(), useMemo(), useImperativeHandle(), useLayoutEffect()?
+- Какие хуки были добавлены в React Router версии 5?
+- Разница между memo и useMemo?
