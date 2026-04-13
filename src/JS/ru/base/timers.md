@@ -34,4 +34,4 @@ let timerId = setTimeout(async function tick() {
 
 Не гарантирует точного исполнения интервала выполнения, особенно если функция выполняется дольше заданного интервала
 
-![Проблема setInterval]("../assets/setInterval.png")
+![Проблема setInterval]("../../../../../../assets/JS/setInterval.png")
