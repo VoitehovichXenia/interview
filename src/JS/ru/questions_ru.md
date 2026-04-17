@@ -105,7 +105,8 @@
 - [Что такое замыкание (Closure)?](./base/functions.md#замыкание)
 - [Что обозначает this в JavaScript?](./base/functions.md#this)
 - [Разница между .call(), .apply() и bind()?](./base/functions.md#this)
-- [Написать полифилл для .call(), .apply() и bind()](./base/functions.md#polyfills-для-bind-call-apply)
+
+- [Разница между this и lexical environment?](./base/functions.md#разница-между-this-и-lexical-environment-лексическое-окружение)
 - [Почему расширение нативных JavaScript-объектов это плохая практика?](./base/oop.md#почему-расширение-нативных-javascript-объектов-это-плохая-практика)
 - Как передаются параметры в функцию: по ссылке или по значению?
 - Типы функций по способности принимать другие функции?
@@ -183,3 +184,20 @@
 - Что такое JSON в JavaScript? Как его можно использовать?
 - Что такое и как работает коэффициент сжатия (compression ratio) в контексте веб-разработки?
 - Что делает Promise.finally()? Сценарий его применения?
+
+## Практические задания
+
+### Функции
+
+- [Написать полифилл для .call(), .apply() и bind()](./base/functions.md#polyfills-для-bind-call-apply)
+- [Написать фукцию для мемоизации](./base/practical_tasks.md#написать-мемоизированную-функцию)
+- [Написать debounce функцию](./base/practical_tasks.md#написать-debounce)
+- [Написать throttle функцию](./base/practical_tasks.md#написать-throttle-функцию)
+- [Написать функцию fetchRetry (для повторных запросов)](./base/practical_tasks.md#написать-функцию-fetchretry)
+
+### Promise
+
+- [Написать поллифил для Promise.all](./base/practical_tasks.md#полифилл-promiseall)
+- [Написать поллифил для Promise.allSettled](./base/practical_tasks.md#полифилл-promiseallsettled)
+- [Написать поллифил для Promise.any](./base/practical_tasks.md#написать-поллифил-для-promiseany)
+- [Написать поллифил для Promise.race](./base/practical_tasks.md#написать-поллифил-для-promiserace)

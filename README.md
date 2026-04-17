@@ -16,6 +16,7 @@
     - [ООП](./src/JS/ru/questions_ru.md#ооп)
     - [Web API](./src/JS/ru/questions_ru.md#web-api)
     - [RegExp](./src/JS/ru/questions_ru.md#regexp)
+    - [Практические задания](./src/JS/ru/questions_ru.md#практические-задания)
 - [React](./src/React/ru/questions_ru.md)
     - [База](./src/React/ru/questions_ru.md#база)
     - [Компоненты, props и state](./src/React/ru/questions_ru.md#компоненты-props-и-state)

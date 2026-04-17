@@ -12,3 +12,4 @@
 - Какие библиотеки для управления состоянием вы знаете, кроме Redux?
 - Разница между VueX и Redux?
 - [Что такое Reselect и как он работает?](./src/StateManagement/base.md#что-такое-reselect-и-как-он-работает)
+- [Как решить что выбрать Context API или State manager?](./base.md#как-решить-что-выбрать-context-api-или-state-manager)

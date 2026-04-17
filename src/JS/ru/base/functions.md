@@ -243,140 +243,28 @@ foo() // 8
 
 # This
 
-**this** - это ссылка на объект в контексте которого выполняется функция или метод (тогда this равен объекту в контексте которого был вызван)
+**this (контекст выполнения)** - это ссылка на объект в контексте которого выполняется функция или метод (тогда this равен объекту в контексте которого был вызван)
 
-У стрелочных функций нет this. В стрелочных функциях this ссылается на this внешней функции.
+По умолчанию для функций this ссылается на window (в "use strict" - undefined), но мы можем задать его явно:
 
-По умолчанию для функций this ссылается на window, но мы можем задать его явно:
+- **.bind(context)** - задает новый контекст, при это НЕ вызывая функцию
+- **.call(context, arg1, arg2 ...)** - задает новый контекст, вызывая функцию с переданными аргументами
+- **.apply(context, [arg1, arg2 ...])** - задает новый контекст, вызывая функцию с переданными аргументами в виде массива
 
-- **.bind(context)** - указывает ссылку на объект в контексте которого будет осуществлен вызов, при это НЕ вызывая функцию
-    ```ts
-    const car = {
-      name: 'Audi',
-      printName () {
-        console.log(this.name)
-      }
-    }
+# Разница между this и Lexical Environment (лексическое окружение)
 
-    const car_2 = {
-      name: 'Tesla'
-    }
-    car_2.printName = car.printName.bind(car_2)
+**this** определяет контекст выполнения (на какой объект ссылаться), зависящий от способа вызова функции.
 
-    car.printName()
-    car_2.printName()
-    ```
-- **.call(context, arg1, arg2 ...)** - первый аргумент указывает ссылку на объект в контексте которого будет осуществлен вызов, следующие аргументы передаются в функцию непосредственно, при этом происходит ВЫЗОВ функции
-    ```ts
-    const car = {
-      name: 'Audi',
-      getInfo (age) {
-        console.log(`Car info: ${this.name} ${age} years old`)
-      }
-    }
+- определяется во время выполнения функции
+- указывает на объект, который вызвал функцию
+- можно изменять (задать с помощью специальных методов)
 
-    const car_2 = {
-      name: 'Tesla'
-    }
+**Лексическое окружение** — это структура хранения переменных, определяемая местом написания кода (scope), которая содержит переменные и ссылку на внешнее окружение.
 
-    car.getInfo(25)
-    car.getInfo.call(car_2, 5)
-    ```
-- **.apply(context, [arg1, arg2 ...])** - первый аргумент указывает ссылку на объект в контексте которого будет осуществлен вызов, следующие аргументы передаются в виде массива в функцию непосредственно, при этом происходит ВЫЗОВ функции
-    ```ts
-    const car = {
-      name: 'Audi',
-      getInfo (age, nextServiceDate) {
-        console.log(`Car info: ${this.name} ${age} years old, next service should be done in: ${nextServiceDate}`)
-      }
-    }
-
-    const car_2 = {
-      name: 'Tesla'
-    }
-
-    car.getInfo(25, '2026')
-    car.getInfo.apply(car_2, [5, '2028'])
-    ```
-
-## Polyfills для bind call apply
-
-### bind()
-
-Идея
-- сохранить контест вызова метода (оригинальную функцию)
-- вернуть новую функцию в которой мы:
-    - определим новый итоговый контекст (если передан в myBind - то оставляем, если нет - window)
-    - в итоговом контексте временно создадим метод, который будет оригинальной функцией
-    - вызовем метод с переданными аргументами и сохраним результат в переменную
-    - удалим созданный метод
-    - вернем результат выполнения
-```ts
-Function.prototype.myBind = function (context) {
-  const originalFunc = this
-
-  return function binded(args) {
-    const finalContext = context ?? window
-
-    const tempMethodSymbol = Symbol()
-
-    finalContext[tempMethodSymbol] = originalFunc
-
-    const result = finalContext[tempMethodSymbol](args)
-
-    delete finalContext[tempMethodSymbol]
-
-    return result
-  }
-}
-```
-
-### call()
-
-Идея: 
-- сделать точно также, только сразу вызывать фунцию а не возвращать ее
-
-```ts
-Function.prototype.myCall = function (context, ...args) {
-  const originalFunc = this
-
-  const finalContext = context ?? window
-
-  const tempMethodSymbol = Symbol()
-
-  finalContext[tempMethodSymbol] = originalFunc
-
-  const result = finalContext[tempMethodSymbol](...args)
-
-  delete finalContext[tempMethodSymbol]
-
-  return result
-} 
-```
-
-### apply()
-
-Идея: 
-- сделать точно также, только сразу вызывать фунцию а не возвращать ее
-- дополнительно проверить переданны ли аргументы
-
-```ts
-Function.prototype.myApply = function (context, args) {
-  const originalFunc = this
-
-  const finalContext = context ?? window
-
-  const tempMethodSymbol = Symbol()
-
-  finalContext[tempMethodSymbol] = originalFunc
-
-  const result = finalContext[tempMethodSymbol]( args ? ...args : undefined)
-
-  delete finalContext[tempMethodSymbol]
-
-  return result
-} 
-```
+- определяется во время создания кода
+- хранит переменные доступные функции, а также ссылку на внешнее лексическое окружение где функция была создана
+- позволяет функции иметь доступ к переменным, где она была объявлена, независимо от того где она была вызвана
+- реализует замыкание
 
 # Что такое функции генераторы и для чего они используются?
 

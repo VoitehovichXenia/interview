@@ -1,7 +1,7 @@
 # Полифилл Promise.all
 
 ```js
-Promise.prototype.myPromiseAll = function (promises) {
+function promiseAll(promises) {
   return new Promise((resolve, reject) => {
     // Проверка аргумента
     if (!Array.isArray(promises)) {
@@ -32,6 +32,19 @@ Promise.prototype.myPromiseAll = function (promises) {
     })
   })
 }
+
+const resolve = (value, timeout) => {
+  return new Promise((res) => setTimeout(res, timeout, value))
+}
+const reject = (value, timeout) => {
+  return new Promise((_, rej) => setTimeout(rej, timeout, value))
+}
+
+const promises = [resolve(1, 200), resolve(2, 300), resolve(3, 100)]
+const promisesWithReject = [resolve(1, 200), reject(2, 100), resolve(3, 100)]
+
+promiseAll(promises).then(result => console.log(result))
+promiseAll(promisesWithReject).catch(err => console.log(err))
 ```
 
 # Полифилл Promise.allSettled

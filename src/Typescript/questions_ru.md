@@ -1,0 +1,31 @@
+# Typescript
+
+- [Что такое TypeScript?](./base.md#что-такое-typescript)
+- [Основные компоненты TypeScript?](./base.md#основные-компоненты-typescript)
+- [Назовите особенности TypeScript?](./base.md#назовите-особенности-typescript)
+- [Плюсы использования TypeScript?](./base.md#плюсы-использования-typescript)
+- [Минусы использования TypeScript?](./base.md#минусы-использования-typescript)
+- [Типы в TypeScript?](./base.md#типы-в-typescript)
+- [Разница между any и unknown в TypeScript?](./base.md#разница-unknown-и-any)
+- [Что такое декораторы?](./base.md#что-такое-декораторы)
+- [Поддерживает ли TypeScript перегрузку функций?](./base.md#поддерживает-ли-typescript-перегрузку-функций)
+- [Разница между типом (type) и интерфейсом (interface)?](./base.md#разница-между-типом-type-и-интерфейсом-interface)
+- [Что такое JSX в TypeScript? Какие режимы JSX поддерживает TypeScript?](./base.md#jsx-в-typescript)
+- Что такое директивы с тремя наклонными чертами (Triple-Slash Directives), их типы?
+- Что такое внешние объявления переменных (ambient declaration) в TypeScript?
+- Разница между абстрактным классом (abstract class) и интерфейсом (interface)?
+- Какие элементы ООП поддерживаются в TypeScript?
+- Модификаторы доступа в TypeScript?
+- Разница между внутренним (Internal Module) и внешним модулями (External Module)?
+- Что такое декораторы в TypeScript?
+- Как TypeScript поддерживает необязательные и дефолтные параметры в функции?
+- Что такое перечисление (enum)?
+- Для чего в TypeScript используется NoImplicitAny?
+- Разница между типами “Объединение” (|) и “Пересечение” (&)?
+- Что такое общие типы (generic) в TypeScript?
+- Какие области видимости доступны в TypeScript?
+- Что такое .map файл, как и зачем его использовать?
+- Можно ли использовать TypeScript в серверной разработке?
+- Для чего в TypeScript используют ключевое слово declare?
+- Разница между типами void, never и unknown?
+- Как вы отлавливаете ошибки в TypeScript коде?

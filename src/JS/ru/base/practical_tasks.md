@@ -480,3 +480,349 @@ export default function App () {
 ```
 
 </details>
+
+# Promise
+
+## Полифилл Promise.all
+
+```js
+// тестовые данные
+const resolve = (value, timeout) => {
+  return new Promise((res) => setTimeout(res, timeout, value))
+}
+const reject = (value, timeout) => {
+  return new Promise((_, rej) => setTimeout(rej, timeout, value))
+}
+
+const promises = [resolve(1, 200), resolve(2, 300), resolve(3, 100)]
+const promisesWithReject = [resolve(1, 200), reject(2, 100), resolve(3, 100)]
+
+Promise.all(promises).then(result => console.log('Promise.all: ', result))
+Promise.all(promisesWithReject).catch(err => console.log('Promise.all: ',err))
+
+promiseAll(promises).then(result => console.log('Polyfill: ', result))
+promiseAll(promisesWithReject).catch(err => console.log('Polyfill: ', err))
+// Promise.myAll(promises).then(result => console.log('Polyfill: ', result))
+// Promise.myAll(promisesWithReject).catch(err => console.log('Polyfill: ', err))
+```
+<details>
+<summary>Ответ</summary>
+
+Что делает метод: принимает массив промисов и возвращает промис который выполнится тогда, когда будут выполнены все промисы, переданные в виде перечисляемого аргумента, или отклонено любое из переданных промисов.
+
+В случае успешного выполнения вернет массив с результатами сохраняя порядок переданного массива
+
+В случае если какой либо из промисов отклонен промис будет также отклонен
+
+Идея:
+- возвращаем промис
+- создаем в нем переменные для хранения результатов и счетчик выполнененных промисов
+- циклически обходим переданный массив, в цикле:
+    - резолвим исходный промис
+    - в ветке then записываем результат в массив по индексу и увеличиваем счетчик
+    - проверяем счетчик - если дошли до конца => резолвим возвращаемый промис
+    - в ветку catch передаем reject возвращаемого промиса
+- *валидация входящего массива
+
+```js
+// Статический метод
+Promise.myAll = function (promises) {
+  return new Promise((resolve, reject) => {
+    // Проверка аргумента
+    if (!Array.isArray(promises)) {
+      reject(`${promises} is not an array`)
+    }
+
+    // Если массив пустой
+    if (!promises.length) {
+      resolve([])
+    }
+
+    const results = []
+    let completed = 0;
+
+    promises.forEach((promise, index) => {
+      Promise.resolve(promise)
+        .then(result => {
+          results[index] = result
+          completed++
+          if (completed === promises.length) resolve(results)
+        })
+        .catch(reject)
+    })
+  })
+}
+
+// функция
+function promiseAll(promises) {
+  return new Promise((resolve, reject) => {
+    // Проверка аргумента
+    if (!Array.isArray(promises)) {
+      reject(`${promises} is not an array`)
+    }
+
+    // Если массив пустой
+    if (!promises.length) {
+      resolve([])
+    }
+
+    const results = []
+    let completed = 0
+
+    promises.forEach((promise, index) => {
+      Promise.resolve(promise)
+        // в случае успешного выполнения
+        .then(result => {
+          results[index] = result;
+          completed += 1;
+
+          if (completed === promises.length) {
+            resolve(results)
+          }
+        })
+        // в случае неуспешного выполнения
+        .catch(reject)
+    })
+  })
+}
+```
+
+</details>
+
+## Полифилл Promise.allSettled
+
+```js
+// тестовые данные
+const resolve = (value, timeout) => {
+  return new Promise((res) => setTimeout(res, timeout, value))
+}
+const reject = (value, timeout) => {
+  return new Promise((_, rej) => setTimeout(rej, timeout, value))
+}
+
+const promisesWithReject = [resolve(1, 200), reject(2, 100), resolve(3, 100)]
+
+Promise.allSettled(promisesWithReject).then(result => console.log('Promise.allSettled: ', result))
+
+promiseAllSettled(promisesWithReject).then(result => console.log('Polyfill: ', result))
+// Promise.myAllSettled(promisesWithReject).then(result => console.log('Polyfill: ', result))
+```
+<details>
+<summary>Ответ</summary>
+
+Что делает метод: возвращает промис, который будет выполнен когда все переданные промисы завершатся (успешно или нет)
+
+Возвращает массив со статусом промиса и его результатом
+
+Идея:
+- возвращаем промис
+- в промисе создаем массив с результатами и счетчик выполненых промисов
+- циклически обходим массив промисов
+    - резолвим каждый из них
+    - в ветке then записываем статус и результат по индексу в массив результатов и увеличиваем счетчик
+    - далее проверяем счетчик => если счетчик равен числу промисов в массиве => резолвим возвращаемый промис 
+    - в ветке catch повторяем то же самое
+
+```js
+// статический метод
+Promise.myPromiseAllSettled = function (promises) {
+  return new Promise((resolve, reject) => {
+    // Проверка аргумента
+    if (!Array.isArray(promises)) {
+      reject(`${promises} is not an array`)
+    }
+
+    // Если массив пустой
+    if (!promises.length) {
+      resolve([])
+    }
+
+    const results = []
+    let completed = 0
+
+    promises.forEach((promise, index) => {
+      Promise.resolve(promise)
+        // в случае успешного выполнения
+        .then(result => {
+          results[index] = { status: 'fulfilled', value: result };
+          completed++;
+
+          if (completed === promises.length) {
+            resolve(results)
+          }
+        })
+        // в случае неуспешного выполнения
+        .catch((err) => {
+          results[index] = { status: 'rejected', reason: err };
+          completed++;
+
+          if (completed === promises.length) {
+            resolve(results)
+          }
+        })
+    })
+  })
+}
+
+// функция
+function promiseAllSettled(promises) {
+  return new Promise((resolve, reject) => {
+    const results = []
+    let completed = 0
+
+    promises.forEach((promise, index) => {
+      Promise.resolve(promise)
+        .then(result => {
+          results[index] = { status: 'fulfilled', value: result}
+          completed++
+
+          if (completed === promises.length) resolve(results)
+        })
+        .catch(result => {
+          results[index] = { status: 'rejected', reason: result}
+          completed++
+
+          if (completed === promises.length) resolve(results)
+        })
+    })
+  })
+}
+```
+
+</details>
+
+## Написать поллифил для Promise.race
+
+```js
+// тестовые данные
+const resolve = (value, timeout) => {
+  return new Promise((res) => setTimeout(res, timeout, value))
+}
+const reject = (value, timeout) => {
+  return new Promise((_, rej) => setTimeout(rej, timeout, value))
+}
+
+const promises = [resolve(1, 200), resolve(2, 300), resolve(3, 100)]
+const promisesWithReject = [resolve(1, 200), reject(2, 100), resolve(3, 100)]
+
+Promise.race(promises).then(result => console.log('Promise.race: ', result))
+Promise.race(promisesWithReject)
+  .then(result => console.log('Promise.race: ', result))
+  .catch(err => console.log('Promise.race: ', err))
+
+promiseRace(promises).then(result => console.log('Polyfill: ', result))
+promiseRace(promisesWithReject)
+  .then(result => console.log('Polyfill: ', result))
+  .catch(err => console.log('Polyfill: ', err))
+// Promice.myRace(promises).then(result => console.log('Polyfill: ', result))
+// Promice.myRace(promisesWithReject)
+//   .then(result => console.log('Polyfill: ', result))
+//   .catch(err => console.log('Polyfill: ', err))
+```
+<details>
+<summary>Ответ</summary>
+
+Что делает метод: принимает массив промисов и возвращает любой промис который выполнится или отклонится первый
+
+Идея:
+- возвращаем промис
+- в промисе обходим переданный массив циклом:
+    - резолвим промис
+    - в ветке then передаем resolve возвращаемого промиса (зарезолвит первый выполненный)
+    - в ветке catch передаем reject возвращаемого промиса (отклонит первый отклоненный промис)
+
+```js
+// статический метод
+Promise.myRace = function(promises) {
+  return new Promise((resolve, reject) => {
+    promises.forEach(promise => {
+      Promise.resolve(promise)
+        .then(resolve)
+        .catch(reject)
+    })
+  })
+}
+
+// функция
+function promiseRace(promises) {
+  return new Promise((resolve, reject) => {
+    promises.forEach(promise => {
+      Promise.resolve(promise)
+        .then(resolve)
+        .catch(reject)
+    })
+  })
+}
+```
+
+</details>
+
+## Написать поллифил для Promise.any
+
+```js
+// тестовые данные
+const resolve = (value, timeout) => {
+  return new Promise((res) => setTimeout(res, timeout, value))
+}
+const reject = (value, timeout) => {
+  return new Promise((_, rej) => setTimeout(rej, timeout, value))
+}
+
+const promises = [resolve(1, 200), resolve(2, 300), resolve(3, 100)]
+const promisesWithReject = [reject(1, 200), reject(2, 100), reject(3, 100)]
+
+Promise.any(promises).then(result => console.log('Promise.race: ', result))
+Promise.any(promisesWithReject).catch(err => console.log('Promise.race: ', err))
+
+promiseAny(promises).then(result => console.log('Polyfill: ', result))
+promiseAny(promisesWithReject).catch(err => console.log('Polyfill: ', err))
+// Promise.myAny(promises).then(result => console.log('Polyfill: ', result))
+// Promise.myAny(promisesWithReject).catch(err => console.log('Polyfill: ', err))
+```
+
+<details>
+<summary>Ответ</summary>
+
+Что делает метод: принимает массив промисов и возврашает первый успешно выполненый промис, если все промисы были отклонены возвращает AggregateError
+
+Идея:
+- возвращаем промис
+- в промисе создаем переменную для счетчика ошибок
+- циклически обходим переданный массив промисов
+    - резолвим каждый промис
+    - в ветке then передаем resolve
+    - в ветке catch при каждой ошибке увеличиваем счетчик ошибок и проверяем равен ли счетчик ошибок количеству промисов в переданном массиве, если равен => реджектим возвращаемый промис с AggregateError
+
+```js
+Promise.myAny = function(promises) {
+  return new Promise((resolve, reject) => {
+    let rejected = 0
+  
+    promises.forEach(promise => {
+      Promise.resolve(promise)
+        .then(resolve)
+        .catch(err => {
+          rejected++
+          if (rejected === promises.length) reject('AggregateError: All promises were rejected')
+        })
+    })
+  })
+}
+
+function promiseAny(promises) {
+  return new Promise((resolve, reject) => {
+    let rejected = 0
+  
+    promises.forEach(promise => {
+      Promise.resolve(promise)
+        .then(resolve)
+        .catch(err => {
+          rejected++
+          if (rejected === promises.length) reject('AggregateError: All promises were rejected')
+        })
+    })
+  })
+}
+```
+
+</details>
