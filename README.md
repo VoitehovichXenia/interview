@@ -22,3 +22,4 @@
     - [Hooks](./src/React/ru/questions_ru.md#hooks)
 - [State management](./src/StateManagement/ru/questions_ru.md)
 - [Web](./src/Web/ru/questions_ru.md)
+    - [Безопасность](./src/Web/ru/questions_ru.md#безопасность)
