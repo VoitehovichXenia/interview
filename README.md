@@ -2,7 +2,7 @@
 
 ## RU
 
-- [HTML](./src//HTML/ru/questions_ru.md)
+ [HTML](./src//HTML/ru/questions_ru.md)
 - [JS](./src/JS/ru/questions_ru.md)
     - [База](./src/JS/ru/questions_ru.md#база)
     - [Переменные](./src/JS/ru/questions_ru.md#переменные)
@@ -17,6 +17,16 @@
     - [Web API](./src/JS/ru/questions_ru.md#web-api)
     - [RegExp](./src/JS/ru/questions_ru.md#regexp)
     - [Практические задания](./src/JS/ru/questions_ru.md#практические-задания)
+- [Typescript](./src/Typescript/questions_ru.md)
+    - [Определения](./src/Typescript/questions_ru.md#определения)
+    - [Типы](./src/Typescript/questions_ru.md#типы)
+    - [Функции в typescript (перегрузка, декораторы)](./src/Typescript/questions_ru.md#функции-в-typescript-перегрузка-декораторы)
+    - [ООП в typescript](./src/Typescript/questions_ru.md#ооп-в-typescript)
+    - [Директивы и ключевые слова в typescript](./src/Typescript/questions_ru.md#директивы-и-ключевые-слова-в-typescript)
+    - [Конфигурация typescript](./src/Typescript/questions_ru.md#конфигурация-typescript)
+    - [Модули и области видимости в typescript](./src/Typescript/questions_ru.md#модули-и-области-видимости-в-typescript)
+    - [Typescript в серверной разработке](./src/Typescript/questions_ru.md#typescript-в-серверной-разработке)
+    - [Практические вопросы](./src/Typescript/questions_ru.md#практические-вопросы)
 - [React](./src/React/ru/questions_ru.md)
     - [База](./src/React/ru/questions_ru.md#база)
     - [Компоненты, props и state](./src/React/ru/questions_ru.md#компоненты-props-и-state)

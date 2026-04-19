@@ -359,7 +359,12 @@ const clonedElement = React.cloneElement(element, {className: 'subtitle'});
 
 **Предохранители (Error Boundaries)** — это компоненты React, которые отлавливают ошибки JavaScript в любом месте деревьев их дочерних компонентов, сохраняют их в журнале ошибок и выводят запасной UI вместо рухнувшего дерева компонентов.
 
-Классовый компонент является предохранителем, если он включает хотя бы один из следующих методов жизненного цикла static ``getDerivedStateFromError()`` или ``componentDidCatch()``.
+Классовый компонент является предохранителем, если он включает хотя бы один из следующих методов жизненного цикла static ``getDerivedStateFromError()`` или ``componentDidCatch()``. Функциональный компонент нативно реализовать нельзя.
+
+Что НЕ отлавливает ErrorBoundary
+- асинхронные ошибки
+- ошибки внутри try/catch
+- ошибки на стороне серверного рендеринга
 
 ```jsx
 class ErrorBoundary extends React.Component {
