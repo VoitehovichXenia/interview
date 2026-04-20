@@ -826,3 +826,161 @@ function promiseAny(promises) {
 ```
 
 </details>
+
+# Объекты
+
+## Написать функцию глубокого копирования объекта
+
+```js
+// тестовые данные
+const original = {
+  // Примитивы
+  number: 42,
+  string: 'test',
+  boolean: true,
+  nullValue: null,
+  undefinedValue: undefined,
+
+  // Вложенность
+  nested: {
+    level1: {
+      level2: {
+        value: 'deep'
+      }
+    }
+  },
+
+  // Массивы
+  array: [1, { a: 2 }, [3, 4]],
+
+  // Дата
+  date: new Date('2020-01-01'),
+
+  // RegExp
+  regex: /test/gi,
+
+  // Map
+  map: new Map([
+    [{ key: 'objKey' }, { value: 'objValue' }],
+    ['primitiveKey', 123]
+  ]),
+
+  // Set
+  set: new Set([1, 2, 3, { a: 1 }]),
+
+  // Функция
+  fn: function () {
+    return 'I am a function';
+  }
+};
+
+const copy = deepCopy(original)
+
+copy.number = 54;
+copy.nested.level1.level2.newValue = 'newValue'
+copy.array[1].a = 'copy'
+copy.date = new Date('2026-02-02')
+copy.regex = /[abc]/gi
+copy.set.add(5)
+copy.map.delete('primitiveKey')
+
+// Удалем оригинальную функцию
+delete original.fn
+// Проверяем как скопировалась функция в объект
+console.log(copy.fn())
+
+console.log('is ref are the same', original === copy)
+console.log('original', original)
+console.log('copy', copy)
+```
+
+<details>
+<summary>Ответ</summary>
+
+Идея:
+- необходимо рекурсивно обходить объект (если примитив - то возвращаем значение, если нет то вызываем функцию копирования повторно)
+
+```js
+function deepCopy(obj) {
+  if (typeof obj !== 'object' || obj === null) return obj
+
+  if (Array.isArray(obj)) {
+    const copy = []
+    for (let i = 0; i < obj.length; i += 1) {
+      copy[i] = deepCopy(obj[i])
+    }
+    return copy
+  }
+
+  if (obj instanceof Date) {
+    return new Date(obj)
+  }
+
+  if (obj instanceof RegExp) {
+    return new RegExp(obj)
+  }
+
+  if (obj instanceof Function) {
+    return obj.bind(this)
+  }
+
+  if (obj instanceof Map) {
+    const copy = new Map()
+    obj.forEach((value, key) => {
+      copy.set(key, deepCopy(value))
+    })
+    return copy
+  }
+
+  if (obj instanceof Set) {
+    const copy = new Set()
+    obj.forEach((value) => {
+      copy.add(deepCopy(value))
+    })
+    return copy
+  }
+
+  const copy = {}
+  for (let key in obj) {
+    copy[key] = deepCopy(obj[key])
+  }
+
+  return copy
+}
+```
+
+</details>
+
+# Как сгенерировать случайное число в JavaScript?
+
+## Случайное число от 0 до 1:
+
+<details>
+<summary>Ответ</summary>
+
+```javascript
+let rand = Math.random(); // Например: 0.123456789
+```
+</details>
+
+## Случайное целое число от min до max (включительно):
+
+<details>
+<summary>Ответ</summary>
+
+```javascript
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+```
+</details>
+
+## Случайное число с плавающей запятой в диапазоне:
+
+<details>
+<summary>Ответ</summary>
+
+```javascript
+let rand = Math.random() * (max - min) + min;
+```
+</details>

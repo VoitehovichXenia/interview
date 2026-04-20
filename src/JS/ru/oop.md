@@ -319,3 +319,46 @@ animal.hasOwnProperty('toString') // false
 // Для всех примитивов выдает false
 6 instanceof Number // false
 ```
+
+# Что такое полифил (polyfill)?
+
+Поллифилл - это кастомная реализация того, что еще не добавлено в общепринятый стандарт браузера
+
+Для проверки поддерживаемости тех или иных фич можно пользоваться сайтом [CanIUse](https://caniuse.com/)
+
+# Как в JavaScript работают декораторы? Как они могут быть использованы для модификации поведения классов и методов?
+
+Декоратор - функция обертка, которая используется для валидации функции или модификации ее
+
+```js
+function validateArgsDecorator(fn) {
+  return function(...args) {
+    if (args.length !== fn.lengs) {
+      throw new TypeError(`There should be ${fn.length} arguments`)
+    }
+
+    const isValidArgs = args.every(arg => Number.isInteger(arg))
+
+    if (!isValidArgs) {
+      throw new TypeError('Arguments should be integers')
+    }
+
+    return fn(..args)
+  }
+}
+
+function multiply(a, b) {
+  return a * b
+}
+
+const decoratedMultiply = validateArgsDecorator(multiply)
+
+multiply(6, 8);
+//48
+
+multiply(6, 8, 7);
+//Error: There should be 2 arguments
+
+multiply(3, null);
+//TypeError: Arguments should be integers
+```

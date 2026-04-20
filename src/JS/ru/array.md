@@ -81,7 +81,7 @@ arr.shift()
 
 ### from()
 
-``from(iterable)``
+``from(iterable, mapFn)``
 
 создаёт новый экземпляр Array из массивоподобного или итерируемого объекта [Читать больше](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/from)
 
@@ -457,3 +457,8 @@ console.log(arr); // [1, 2, 3, 4, 5]
 ### [Symbol.iterator]()
 
 возвращает новый объект итератора массива Array Iterator, содержащий значения для каждого индекса в массиве [Читать больше](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/Symbol.iterator)
+
+# Назовите способы преобразования массива в объект?
+
+- Object.assign({}, arr)
+- Object.fromEntries([[0, 0], [1, 1]])

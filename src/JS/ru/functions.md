@@ -14,7 +14,7 @@
 - конструктора **new Function(params, code)**
 - **arrow function** () => {}
 
-Функции в JS являются объектами первого класса. Что такле объект первого класса - [читать здесь](../data_structures_and_types/object.md#объект-первого-класса)
+Функции в JS являются объектами первого класса, потому что с ними обращаются как с обычными данными. Что такое объект первого класса - [читать здесь](./object.md#объект-первого-класса)
 
 # Разница между function declaration и function expression?
 
@@ -86,6 +86,43 @@ new arrowFunc('John Doe') // Error
 ```
 - Не допускают дублирования имен параметров (традиционные же фунции допускают такое в нестрогом режиме)
 
+# Как передаются параметры в функцию: по ссылке или по значению?
+
+Примитивы - передаются по значению
+
+```js
+function printVariable(value) {
+  value = 'I\'ve changed value'
+  console.log(value)
+}
+
+const testValue = 5;
+
+printVariable(testValue) // 'I've changed value'
+console.log(testValue) // 5
+```
+
+Ссылочные типы - по ссылке
+
+```js
+function printVariable(value) {
+  if (typeof value === 'object' && value && !Array.isArray(value)) {
+    value.changed = 'I\'ve changed original object'
+  }
+  console.log(value)
+}
+
+const testObj = { name: 'Xaden' };
+
+console.log(testObj) // { name: 'Xaden' }
+printVariable(testObj) // { name: 'Xaden', changed: 'I've changed original object'}
+console.log(testObj) // { name: 'Xaden', changed: 'I've changed original object'}
+```
+
+# Разница между параметром и аргументом функции?
+
+![Arguments vs parameters](../../../assets/JS/arguments&parameters.png)
+
 # Рекурсия
 
 **Рекурсия** - вызов функцией самой себя
@@ -113,7 +150,9 @@ function count () {
 // Обычная рекурсия
 function sum(n) {
   if (n === 0) return 0;
-  return n + sum(n - 1); // после вызова ещё есть операция "+"
+  return n + sum(n - 1); // после вызова функции осуществляется ещё есть операция "+"
+  // сначала sum(n - 1)
+  // потом n + результат предыдущего шага
 }
 
 sum(5)
@@ -121,7 +160,7 @@ sum(5)
 // 5 + sum(4)
 // 4 + sum(3)
 // 3 + sum(2) ...
-// может быть переполнение stack
+// может быть переполнение stack при большом числе операций
 
 function sum(n, acc = 0) {
   if (n === 0) return acc;
@@ -188,6 +227,11 @@ function () {
   console.log(5)
 }
 ```
+
+# Типы функций по способности принимать другие функции?
+
+- функции первого порядка (принимают только данные и не возвращают функции)
+- функции высшего порядка (принимают или возвращают другие функции)
 
 # HOC (High order function)
 
