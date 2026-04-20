@@ -593,3 +593,54 @@ let proxy = new Proxy(target, handler);
 [[DefineOwnProperty]] | defineProperty | Object.defineProperty, Object.defineProperties |
 [[GetOwnProperty]] | getOwnPropertyDescriptor | Object.getOwnPropertyDescriptor, for..in, Object.keys/values/entries |
 [[OwnPropertyKeys]] | ownKeys | Object.getOwnPropertyNames, Object.getOwnPropertySymbols, for..in, Object.keys/values/entries |
+
+## Инварианты
+
+JavaScript налагает некоторые условия (инварианты) на реализацию внутренних методов и ловушек.
+
+Большинство из них касаются возвращаемых значений, например метод [[Set]] должен возвращать true, если значение было успешно записано, иначе false.
+
+Применение ловушки get (реализация «значения по умолчанию»)
+```js
+let numbers = [0, 1, 2];
+
+// прокси перезаписывает переменную
+numbers = new Proxy(numbers, {
+  get(target, prop) {
+    if (prop in target) {
+      return target[prop];
+    } else {
+      return 0; // значение по умолчанию
+    }
+  }
+});
+
+console.log( numbers[1] ); // 1
+console.log( numbers[123] ); // 0 (нет такого элемента)
+```
+
+Валидация с ловушкой «set» (например, нужно сделать массив исключительно для чисел, если в него добавляется значение иного типа, то это должно приводить к ошибке)
+```js
+let numbers = [];
+
+numbers = new Proxy(numbers, { // (*)
+  set(target, prop, val) { // для перехвата записи свойства
+    if (typeof val == 'number') {
+      target[prop] = val;
+      return true;
+    } else {
+      return false;
+    }
+  }
+});
+
+// встроенная функциональность массива по-прежнему работает
+// pначения добавляются методом push
+numbers.push(1); // добавилось успешно
+numbers.push(2); // добавилось успешно
+console.log("Длина: " + numbers.length); // 2
+
+numbers.push("тест"); // TypeError (ловушка set на прокси вернула false)
+```
+
+Подробнее про другие ловушки - [читать здесь](https://learn.javascript.ru/proxy)
