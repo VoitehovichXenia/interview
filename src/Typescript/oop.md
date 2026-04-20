@@ -74,6 +74,34 @@ const developer = new Employee('Xaden', 23, 'team lead')
 developer.printEmployee()
 ```
 
+# Что такое геттеры и сеттеры в TypeScript?
+
+Это методы класса помогающие получать/задавать значения приватным свойствам. 
+
+Особенности:
+- если для свойства определен только сеттер, то оно считается недоступным для чтения
+- если для свойства задан только геттер, то оно считается недоступным для изменения
+- сеттеры не имеют возвращаемого значения
+
+```ts
+class User {
+  private _name: string;
+
+  constructor(name: string) {
+    this._name = name;
+  }
+
+  get name() { return this._name }
+  set name(name: string) { 
+    if (name.length < 2) {
+      console.log('Name should have at least 2 letters')
+      return
+    }
+    this._name = name;
+  }
+}
+```
+
 # Разница между абстрактным классом (abstract class) и интерфейсом (interface)?
 
 Абстрактный класс 
